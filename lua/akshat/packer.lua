@@ -20,31 +20,50 @@ return require('packer').startup(function(use)
   	end
       })
 
-  use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+  use ('nvim-treesitter/nvim-treesitter',
+      {run = ':TSUpdate'},
+      require'nvim-treesitter.configs'.setup {
+          autotag = {
+              enable = true,
+              filetypes = { "html" , "xml" ,"rust"  },
+          }
+      }
+  )
   use ('nvim-treesitter/playground')
   use ('nvim-lua/plenary.nvim')
   use ('ThePrimeagen/harpoon')
   use ('mbbill/undotree')
   use ('tpope/vim-fugitive')
+  use ('tpope/vim-commentary')
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+      require("toggleterm").setup()
+  end}
   use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  branch = 'v2.x',
-	  requires = {
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},             -- Required
-		  {                                      -- Optional
-		  'williamboman/mason.nvim',
-		  run = function()
-			  pcall(vim.cmd, 'MasonUpdate')
-		  end,
-	  },
-	  {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-	  -- Autocompletion
-	  {'hrsh7th/nvim-cmp'},     -- Required
-	  {'hrsh7th/cmp-nvim-lsp'}, -- Required
-	  {'L3MON4D3/LuaSnip'},     -- Required
+      "windwp/nvim-autopairs",
+      config = function() require("nvim-autopairs").setup {} end
   }
-} 
+  use {
+          'VonHeikemen/lsp-zero.nvim',
+          branch = 'v2.x',
+          requires = {
+              -- LSP Support
+              {'neovim/nvim-lspconfig'},             -- Required
+              {                                      -- Optional
+              'williamboman/mason.nvim',
+              run = function()
+                  pcall(vim.cmd, 'MasonUpdate')
+              end,
+          },
+          {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+          -- Autocompletion
+          {'hrsh7th/nvim-cmp'},     -- Required
+          {'hrsh7th/cmp-nvim-lsp'}, -- Required
+          {'L3MON4D3/LuaSnip'},     -- Required
+      }
+    }
+
 
 end)
+
+
