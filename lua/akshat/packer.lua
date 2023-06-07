@@ -39,6 +39,20 @@ return require('packer').startup(function(use)
       require("toggleterm").setup()
   end}
   use {
+      'goolord/alpha-nvim',
+      requires = { 'nvim-tree/nvim-web-devicons' },
+      config = function ()
+          require'alpha'.setup(require'alpha.themes.dashboard'.config)
+      end
+  }
+  use ('nvim-lua/popup.nvim');
+  use ('nvim-tree/nvim-tree.lua');
+  use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+  use ('ThePrimeagen/vim-be-good');
+  use {
       "windwp/nvim-autopairs",
       config = function() require("nvim-autopairs").setup {} end
   }
